@@ -48,7 +48,7 @@ public interface RecetaRepository extends JpaRepository<Receta, Integer> {
     @EntityGraph(attributePaths = {"fotos"})
     Optional<Receta> findWithFotosById(Integer id);
 
-    // ---------- Q2 · JPQL con JOIN + SUM (coste total de la receta; null si no tiene ingredientes) ----------
+    // ---------- Q2 · JPQL con JOIN + SUM (null si la receta no tiene ingredientes) ----------
     @Query("""
            SELECT SUM(ri.cantidad * i.precio)
            FROM RecetaIngrediente ri JOIN ri.ingrediente i
@@ -56,7 +56,15 @@ public interface RecetaRepository extends JpaRepository<Receta, Integer> {
            """)
     BigDecimal calcularCoste(@Param("id") Integer id);
 
+    @Query("""
+           SELECT SUM(ri.cantidad * i.kcal)
+           FROM RecetaIngrediente ri JOIN ri.ingrediente i
+           WHERE ri.receta.id = :id
+           """)
+    BigDecimal calcularKcalTotal(@Param("id") Integer id);
+
     // ---------- Q3 · Nativa: % de coincidencia con la despensa (RN-04) ----------
+    @SuppressWarnings({"SqlResolve", "SqlNoDataSourceInspection"})
     @Query(value = """
            SELECT r.id                                   AS id,
                   r.nombre                               AS nombre,
