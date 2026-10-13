@@ -52,6 +52,10 @@ class DespensaRepositoryTest {
 
         List<Despensa> despensa = despensaRepository.findByUsuarioIdOrderByCaducidadAsc(u.getId());
 
+        titulo("Despensa ordenada por caducidad");
+        despensa.forEach(d -> dato("%s x %s -> caduca %s",
+                d.getIngrediente().getNombre(), d.getCantidad(), d.getCaducidad()));
+
         assertThat(despensa).extracting(d -> d.getIngrediente().getNombre())
                 .containsExactly("TEST Leche", "TEST Arroz");
     }
@@ -67,6 +71,10 @@ class DespensaRepositoryTest {
 
         var encontrada = despensaRepository.findById(new DespensaId(u.getId(), arroz.getId()));
 
+        titulo("Búsqueda por clave compuesta (usuario " + u.getId() + ", ingrediente " + arroz.getId() + ")");
+        dato("encontrada? %s", encontrada.isPresent());
+        encontrada.ifPresent(d -> dato("cantidad=%s | caducidad=%s", d.getCantidad(), d.getCaducidad()));
+
         assertThat(encontrada).isPresent();
         assertThat(encontrada.get().getCantidad()).isEqualByComparingTo("1.00");
     }
@@ -80,11 +88,19 @@ class DespensaRepositoryTest {
 
         em.clear();
         Despensa sinFetch = despensaRepository.findByUsuarioIdOrderByCaducidadAsc(u.getId()).get(0);
-        assertThat(util.isLoaded(sinFetch, "ingrediente")).isFalse();
+        boolean cargadoSinFetch = util.isLoaded(sinFetch, "ingrediente");
 
         em.clear();
         Despensa conFetch = despensaRepository.buscarDespensaConIngredientes(u.getId()).get(0);
-        assertThat(util.isLoaded(conFetch, "ingrediente")).isTrue();
+        boolean cargadoConFetch = util.isLoaded(conFetch, "ingrediente");
+
+        titulo("LAZY vs JOIN FETCH (ingrediente de la despensa)");
+        dato("consulta derivada       -> ingrediente cargado? %s", cargadoSinFetch);
+        dato("buscarDespensaConIngredientes -> ingrediente cargado? %s (%s)",
+                cargadoConFetch, conFetch.getIngrediente().getNombre());
+
+        assertThat(cargadoSinFetch).isFalse();
+        assertThat(cargadoConFetch).isTrue();
     }
 
     @Test
@@ -95,8 +111,13 @@ class DespensaRepositoryTest {
         guardarEnDespensa(u, guardarIngrediente("TEST Arroz"), LocalDate.now().plusDays(30));
         em.flush();
 
-        List<Despensa> proximos = despensaRepository
-                .buscarProximosACaducar(LocalDate.now(), LocalDate.now().plusDays(2));
+        LocalDate desde = LocalDate.now();
+        LocalDate hasta = LocalDate.now().plusDays(2);
+        List<Despensa> proximos = despensaRepository.buscarProximosACaducar(desde, hasta);
+
+        titulo("Próximos a caducar entre " + desde + " y " + hasta + " (todos los usuarios)");
+        proximos.forEach(d -> dato("%s de %s -> caduca %s",
+                d.getIngrediente().getNombre(), d.getUsuario().getNombre(), d.getCaducidad()));
 
         assertThat(proximos)
                 .filteredOn(d -> d.getUsuario().getId().equals(u.getId()))
@@ -113,12 +134,29 @@ class DespensaRepositoryTest {
         guardarEnDespensa(u, guardarIngrediente("TEST Fresco"), LocalDate.now().plusDays(10));
         em.flush();
 
-        int borrados = despensaRepository.eliminarCaducadosAntesDe(LocalDate.now().minusDays(7));
+        LocalDate limite = LocalDate.now().minusDays(7);
+        int borrados = despensaRepository.eliminarCaducadosAntesDe(limite);
+        List<Despensa> quedan = despensaRepository.findByUsuarioIdOrderByCaducidadAsc(idUsuario);
+
+        titulo("DELETE masivo de caducados antes de " + limite + " (se revierte al terminar)");
+        dato("filas borradas en total: %d", borrados);
+        quedan.forEach(d -> dato("le queda al usuario de prueba: %s (caduca %s)",
+                d.getIngrediente().getNombre(), d.getCaducidad()));
 
         assertThat(borrados).isGreaterThanOrEqualTo(1);
-        assertThat(despensaRepository.findByUsuarioIdOrderByCaducidadAsc(idUsuario))
-                .extracting(d -> d.getIngrediente().getNombre())
+        assertThat(quedan).extracting(d -> d.getIngrediente().getNombre())
                 .containsExactly("TEST Fresco");
+    }
+
+    // ---------- Salida por consola ----------
+
+    private static void titulo(String texto) {
+        System.out.println();
+        System.out.println("=== " + texto + " ===");
+    }
+
+    private static void dato(String formato, Object... args) {
+        System.out.println("   " + String.format(formato, args));
     }
 
     // ---------- Datos de prueba ----------

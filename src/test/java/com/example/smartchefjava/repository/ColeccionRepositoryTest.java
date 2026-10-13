@@ -47,6 +47,12 @@ class ColeccionRepositoryTest {
 
         List<Coleccion> colecciones = coleccionRepository.buscarConRecetas(u.getId());
 
+        titulo("Colecciones del usuario " + u.getId() + " con sus recetas (JOIN FETCH)");
+        colecciones.forEach(c -> {
+            dato("coleccion '%s' (recetas cargadas? %s)", c.getNombre(), util.isLoaded(c, "recetas"));
+            c.getRecetas().forEach(r -> dato("   - %s (%d min)", r.getNombre(), r.getTiempo()));
+        });
+
         assertThat(colecciones).hasSize(1);
         assertThat(util.isLoaded(colecciones.get(0), "recetas")).isTrue();
         assertThat(colecciones.get(0).getRecetas()).hasSize(1);
@@ -59,8 +65,15 @@ class ColeccionRepositoryTest {
         crearColeccionConReceta(u, "TEST Favoritas");
         em.flush();
 
-        assertThat(coleccionRepository.existsByUsuarioIdAndNombreIgnoreCase(u.getId(), "test FAVORITAS")).isTrue();
-        assertThat(coleccionRepository.existsByUsuarioIdAndNombreIgnoreCase(u.getId(), "otra")).isFalse();
+        boolean existe = coleccionRepository.existsByUsuarioIdAndNombreIgnoreCase(u.getId(), "test FAVORITAS");
+        boolean noExiste = coleccionRepository.existsByUsuarioIdAndNombreIgnoreCase(u.getId(), "otra");
+
+        titulo("existsByUsuarioIdAndNombreIgnoreCase");
+        dato("'test FAVORITAS' existe? -> %s", existe);
+        dato("'otra' existe? -> %s", noExiste);
+
+        assertThat(existe).isTrue();
+        assertThat(noExiste).isFalse();
     }
 
     @Test
@@ -70,8 +83,24 @@ class ColeccionRepositoryTest {
         crearColeccionConReceta(u, "TEST Para el táper");
         em.flush();
 
-        assertThat(coleccionRepository.findByUsuarioIdAndNombreIgnoreCase(u.getId(), "test para el táper"))
-                .isPresent();
+        var encontrada = coleccionRepository.findByUsuarioIdAndNombreIgnoreCase(u.getId(), "test para el táper");
+
+        titulo("findByUsuarioIdAndNombreIgnoreCase('test para el táper')");
+        dato("encontrada? %s", encontrada.isPresent());
+        encontrada.ifPresent(c -> dato("id=%d | nombre='%s'", c.getId(), c.getNombre()));
+
+        assertThat(encontrada).isPresent();
+    }
+
+    // ---------- Salida por consola ----------
+
+    private static void titulo(String texto) {
+        System.out.println();
+        System.out.println("=== " + texto + " ===");
+    }
+
+    private static void dato(String formato, Object... args) {
+        System.out.println("   " + String.format(formato, args));
     }
 
     // ---------- Datos de prueba ----------

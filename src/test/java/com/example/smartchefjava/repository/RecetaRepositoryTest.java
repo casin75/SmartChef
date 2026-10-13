@@ -50,6 +50,10 @@ class RecetaRepositoryTest {
 
         List<Receta> resultado = recetaRepository.findByNombreContainingIgnoreCase("test PAELLA");
 
+        titulo("Búsqueda por nombre: 'test PAELLA'");
+        resultado.forEach(r -> dato("id=%d | %s | %d min | %d raciones",
+                r.getId(), r.getNombre(), r.getTiempo(), r.getRaciones()));
+
         assertThat(resultado).extracting(Receta::getNombre).containsExactly("TEST Paella");
     }
 
@@ -60,6 +64,9 @@ class RecetaRepositoryTest {
         guardarRecetaSimple("TEST Ensalada", 10);   // 10 min
 
         List<Receta> rapidas = recetaRepository.findByTiempoLessThanEqualOrderByTiempoAsc(30);
+
+        titulo("Recetas de 30 minutos o menos (de más rápida a más lenta)");
+        rapidas.forEach(r -> dato("%s -> %d min", r.getNombre(), r.getTiempo()));
 
         assertThat(rapidas).extracting(Receta::getNombre)
                 .contains("TEST Ensalada")
@@ -72,8 +79,15 @@ class RecetaRepositoryTest {
     void existeNombreIgnorandoMayusculas() {
         crearPaella();
 
-        assertThat(recetaRepository.existsByNombreIgnoreCase("test paella")).isTrue();
-        assertThat(recetaRepository.existsByNombreIgnoreCase("TEST no existe")).isFalse();
+        boolean existe = recetaRepository.existsByNombreIgnoreCase("test paella");
+        boolean noExiste = recetaRepository.existsByNombreIgnoreCase("TEST no existe");
+
+        titulo("existsByNombreIgnoreCase");
+        dato("'test paella' existe? -> %s", existe);
+        dato("'TEST no existe' existe? -> %s", noExiste);
+
+        assertThat(existe).isTrue();
+        assertThat(noExiste).isFalse();
     }
 
     @Test
@@ -83,7 +97,12 @@ class RecetaRepositoryTest {
 
         crearPaella(); // dificultad 3
 
-        assertThat(recetaRepository.countByDificultad(3)).isEqualTo(antes + 1);
+        long despues = recetaRepository.countByDificultad(3);
+        titulo("countByDificultad(3)");
+        dato("antes de guardar: %d", antes);
+        dato("despues de guardar: %d", despues);
+
+        assertThat(despues).isEqualTo(antes + 1);
     }
 
     // ---------- LAZY y JOIN FETCH ----------
@@ -95,11 +114,19 @@ class RecetaRepositoryTest {
 
         em.clear();
         Receta sinFetch = recetaRepository.findById(id).orElseThrow();
-        assertThat(util.isLoaded(sinFetch, "pasos")).isFalse();
+        boolean cargadosSinFetch = util.isLoaded(sinFetch, "pasos");
 
         em.clear();
         Receta conFetch = recetaRepository.buscarDetalleConPasos(id).orElseThrow();
-        assertThat(util.isLoaded(conFetch, "pasos")).isTrue();
+        boolean cargadosConFetch = util.isLoaded(conFetch, "pasos");
+
+        titulo("LAZY vs JOIN FETCH (pasos de la receta " + id + ")");
+        dato("findById          -> pasos cargados? %s", cargadosSinFetch);
+        dato("buscarDetalleConPasos -> pasos cargados? %s", cargadosConFetch);
+        conFetch.getPasos().forEach(p -> dato("   paso %d: %s", p.getNumero(), p.getDescripcion()));
+
+        assertThat(cargadosSinFetch).isFalse();
+        assertThat(cargadosConFetch).isTrue();
         assertThat(conFetch.getPasos()).hasSize(1);
     }
 
@@ -110,6 +137,11 @@ class RecetaRepositoryTest {
 
         em.clear();
         Receta receta = recetaRepository.buscarDetalleConIngredientes(id).orElseThrow();
+
+        titulo("Ingredientes de '" + receta.getNombre() + "' (JOIN FETCH)");
+        receta.getIngredientes().forEach(ri -> dato("%s x %s (precio %s, kcal %s)",
+                ri.getIngrediente().getNombre(), ri.getCantidad(),
+                ri.getIngrediente().getPrecio(), ri.getIngrediente().getKcal()));
 
         assertThat(util.isLoaded(receta, "ingredientes")).isTrue();
         assertThat(receta.getIngredientes()).hasSize(2)
@@ -123,8 +155,13 @@ class RecetaRepositoryTest {
     void calculaElCoste() {
         Integer id = crearPaella().receta().getId();
 
+        BigDecimal coste = recetaRepository.calcularCoste(id);
+
+        titulo("calcularCoste");
+        dato("2.00 x 1.50 (arroz) + 1.00 x 5.50 (pollo) = %s", coste);
+
         // 2.00 x 1.50 + 1.00 x 5.50 = 8.50
-        assertThat(recetaRepository.calcularCoste(id)).isEqualByComparingTo("8.50");
+        assertThat(coste).isEqualByComparingTo("8.50");
     }
 
     @Test
@@ -132,7 +169,12 @@ class RecetaRepositoryTest {
     void costeNullSinIngredientes() {
         Receta receta = guardarRecetaSimple("TEST Vacía", 5);
 
-        assertThat(recetaRepository.calcularCoste(receta.getId())).isNull();
+        BigDecimal coste = recetaRepository.calcularCoste(receta.getId());
+
+        titulo("calcularCoste de una receta sin ingredientes");
+        dato("coste = %s", coste);
+
+        assertThat(coste).isNull();
     }
 
     // ---------- Q3 · Nativa: coincidencia con la despensa ----------
@@ -146,10 +188,16 @@ class RecetaRepositoryTest {
         guardarEnDespensa(usuario, p.pollo(), LocalDate.now().plusDays(10));
         em.flush();
 
-        Optional<RecetaRepository.RecetaCoincidenciaView> coincidencia =
-                recetaRepository.buscarPorCoincidenciaConDespensa(usuario.getId()).stream()
-                        .filter(v -> "TEST Paella".equals(v.getNombre()))
-                        .findFirst();
+        List<RecetaRepository.RecetaCoincidenciaView> vistas =
+                recetaRepository.buscarPorCoincidenciaConDespensa(usuario.getId());
+
+        titulo("Coincidencia con la despensa (usuario con arroz y pollo, ambos en fecha)");
+        vistas.forEach(v -> dato("%s -> %d de %d ingredientes (%s %%)",
+                v.getNombre(), v.getDisponibles(), v.getTotal(), v.getPorcentaje()));
+
+        Optional<RecetaRepository.RecetaCoincidenciaView> coincidencia = vistas.stream()
+                .filter(v -> "TEST Paella".equals(v.getNombre()))
+                .findFirst();
 
         assertThat(coincidencia).isPresent();
         assertThat(coincidencia.get().getDisponibles()).isEqualTo(2L);
@@ -166,10 +214,27 @@ class RecetaRepositoryTest {
         guardarEnDespensa(usuario, p.pollo(), LocalDate.now().plusDays(10));
         em.flush();
 
-        boolean aparece = recetaRepository.buscarPorCoincidenciaConDespensa(usuario.getId()).stream()
-                .anyMatch(v -> "TEST Paella".equals(v.getNombre()));
+        List<RecetaRepository.RecetaCoincidenciaView> vistas =
+                recetaRepository.buscarPorCoincidenciaConDespensa(usuario.getId());
+
+        titulo("Coincidencia con el arroz caducado ayer y el pollo en fecha");
+        dato("recetas propuestas: %d (la paella queda en 1 de 2 = 50 %%, no pasa el corte)", vistas.size());
+        vistas.forEach(v -> dato("%s -> %s %%", v.getNombre(), v.getPorcentaje()));
+
+        boolean aparece = vistas.stream().anyMatch(v -> "TEST Paella".equals(v.getNombre()));
 
         assertThat(aparece).isFalse(); // exige MÁS del 50 % (RN-04)
+    }
+
+    // ---------- Salida por consola ----------
+
+    private static void titulo(String texto) {
+        System.out.println();
+        System.out.println("=== " + texto + " ===");
+    }
+
+    private static void dato(String formato, Object... args) {
+        System.out.println("   " + String.format(formato, args));
     }
 
     // ---------- Datos de prueba ----------
