@@ -1,0 +1,50 @@
+.formulario {
+  padding: 28px 20px;
+}
+
+.dos-columnas {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 12px;
+}
+
+.ubicaciones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+
+  button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 4px;
+    border-radius: 10px;
+    border: 1px solid var(--app-borde);
+    background: var(--app-superficie);
+    color: var(--ion-color-medium);
+    font: 600 12px var(--ion-font-family);
+    transition: all .2s;
+
+    span { font-size: 22px; }
+  }
+
+  button.elegida {
+    border: 1.5px solid var(--ion-color-primary);
+    background: rgba(var(--ion-color-primary-rgb), .08);
+    color: var(--ion-color-primary);
+  }
+}
+
+.aviso-caducidad {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--app-borde);
+  background: var(--app-superficie);
+  font-size: 14px;
+
+  ion-toggle {
+    width: 100%;
+    --track-background-checked: var(--ion-color-primary);
+  }
+}
