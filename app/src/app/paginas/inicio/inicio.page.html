@@ -1,13 +1,81 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Inicio</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Inicio</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-cabecera [titulo]="'¿Qué cocinamos hoy, ' + usuario.nombre + '?'">
+    <span antetitulo class="antetitulo">{{ hoy }}</span>
+
+    <ng-container extremo>
+      <a class="icono-cabecera" routerLink="/notificaciones" aria-label="Notificaciones">
+        <ion-icon name="notifications-outline"></ion-icon>
+        @if (notificaciones > 0) {
+          <ion-badge color="secondary">{{ notificaciones }}</ion-badge>
+        }
+      </a>
+      <a class="icono-cabecera avatar" routerLink="/app/inicio/perfil" aria-label="Mi perfil">
+        {{ usuario.nombre.charAt(0) }}
+      </a>
+    </ng-container>
+
+    <div class="botones-cabecera">
+      <a class="boton-cabecera" routerLink="/app/mi-cocina">🥕 {{ ingredientes }} ingredientes</a>
+      @if (caducanPronto > 0) {
+        <a class="boton-cabecera naranja" routerLink="/app/mi-cocina">⚠ {{ caducanPronto }} caducan pronto</a>
+      }
+    </div>
+  </app-cabecera>
+
+  <div class="contenido">
+    <!-- Accesos rápidos -->
+    <div class="accesos">
+      <a class="acceso" routerLink="/escanear-ticket">
+        <span aria-hidden="true">🧾</span>
+        <strong>Escanear ticket</strong>
+        <small>Añade tu compra</small>
+      </a>
+      <a class="acceso" routerLink="/app/mi-cocina/nuevo">
+        <span aria-hidden="true">➕</span>
+        <strong>Añadir producto</strong>
+        <small>Manual o código de barras</small>
+      </a>
+      <a class="acceso naranja" routerLink="/app/recetas">
+        <span aria-hidden="true">🍽️</span>
+        <strong>Recetas del día</strong>
+        <small>Con tus ingredientes</small>
+      </a>
+      <a class="acceso verde" routerLink="/app/mi-cocina">
+        <span aria-hidden="true">⏰</span>
+        <strong>Caducan pronto</strong>
+        <small>Úsalos antes</small>
+      </a>
+    </div>
+
+    <div class="titulo-seccion">
+      <h2>Para ti hoy</h2>
+      <a routerLink="/app/recetas">Ver todas ›</a>
+    </div>
+    <div class="para-ti">
+      @for (receta of recetasDelDia; track receta.id) {
+        <app-tarjeta-receta [receta]="receta" [mini]="true" />
+      }
+    </div>
+
+    <div class="titulo-seccion">
+      <h2>Esta semana</h2>
+      <a routerLink="/app/inicio/historial">Ver historial ›</a>
+    </div>
+    <a class="semana" routerLink="/app/inicio/historial">
+      <div class="dias">
+        @for (d of semana; track d.dia) {
+          <div class="dia" [class.hoy]="d.esHoy">
+            <small>{{ d.dia }}</small>
+            @if (d.cocinado) {
+              <img [src]="d.cocinado.recetas[0].fotos[0].url" alt="" />
+              <i class="punto"></i>
+            } @else {
+              <span class="vacio"></span>
+            }
+          </div>
+        }
+      </div>
+      <p>🔥 {{ diasCocinando }} días cocinando esta semana</p>
+    </a>
+  </div>
 </ion-content>

@@ -1,12 +1,27 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/app/inicio"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Historial semanal</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <app-cabecera titulo="Historial Semanal" subtitulo="16 — 22 septiembre 2026" atras="/app/inicio" />
 
-<ion-content class="ion-padding">
-  <p>Aquí irá el resumen de lo cocinado esta semana.</p>
+  <div class="contenido">
+    <div class="datos">
+      <app-tarjeta-dato icono="🔍" [valor]="dias.length + ' días'" etiqueta="Días cocinando" />
+      <app-tarjeta-dato icono="🍽️" [valor]="platos + ' platos'" etiqueta="Platos cocinados" />
+      <app-tarjeta-dato icono="🔥" [valor]="kcalMedia + ' kcal'" etiqueta="Calorías prom./día" />
+      <app-tarjeta-dato icono="💰" [valor]="ahorro + ' €'" etiqueta="Ahorro estimado" />
+    </div>
+
+    <div class="titulo-seccion"><h2>Día a día</h2></div>
+    <div class="lista">
+      @for (dia of dias; track dia.fecha) {
+        <app-fila-imagen [imagen]="dia.recetas[0].fotos[0].url" [titulo]="dia.dia + ' — ' + dia.fechaCorta"
+                         [insignia]="dia.recetas.length" [enlace]="['/app/recetas', dia.recetas[0].id]">
+          {{ dia.recetas.length }} {{ dia.recetas.length === 1 ? 'plato cocinado' : 'platos cocinados' }}
+          <span extremo>{{ dia.kcal }} kcal</span>
+        </app-fila-imagen>
+      } @empty {
+        <app-estado-vacio icono="calendar-outline" titulo="Semana sin cocinar">
+          <p>Cuando marques una receta como cocinada aparecerá aquí.</p>
+        </app-estado-vacio>
+      }
+    </div>
+  </div>
 </ion-content>
