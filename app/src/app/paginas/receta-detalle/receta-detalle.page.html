@@ -1,12 +1,92 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/app/recetas"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Receta</ion-title>
-  </ion-toolbar>
-</ion-header>
+@if (receta(); as receta) {
+  <ion-content [fullscreen]="true">
+    <!-- Foto grande con los botones flotando encima -->
+    <div class="portada">
+      <img [src]="receta.fotos[0].url" [alt]="receta.nombre" />
+      <div class="botones-flotantes">
+        <ion-back-button defaultHref="/app/recetas" text="" aria-label="Atrás"></ion-back-button>
+        <button class="redondo" (click)="favorita = !favorita"
+                [attr.aria-label]="favorita ? 'Quitar de favoritos' : 'Guardar en favoritos'">
+          <ion-icon [name]="favorita ? 'heart' : 'heart-outline'"></ion-icon>
+        </button>
+      </div>
+    </div>
 
-<ion-content class="ion-padding">
-  <p>Estás viendo la receta con <strong>id = {{ id() }}</strong></p>
-</ion-content>
+    <!-- Hoja que se monta sobre la foto -->
+    <div class="hoja">
+      <div class="etiquetas">
+        @for (etiqueta of receta.etiquetas; track etiqueta) {
+          <app-chip-etiqueta [etiqueta]="etiqueta" />
+        }
+      </div>
+      <h1>{{ receta.nombre }}</h1>
+      @if (receta.descripcion) {
+        <p class="descripcion">{{ receta.descripcion }}</p>
+      }
+
+      <div class="datos">
+        <div><ion-icon name="time-outline"></ion-icon><strong>{{ receta.tiempo }} min</strong><small>Tiempo</small></div>
+        <div><ion-icon name="person-outline"></ion-icon><strong>{{ receta.raciones }}</strong><small>Raciones</small></div>
+        <div><ion-icon name="flame-outline"></ion-icon><strong>{{ receta.kcal }}</strong><small>kcal/ración</small></div>
+        <div><app-chip-dificultad [dificultad]="receta.dificultad" /><small>Dificultad</small></div>
+      </div>
+
+      <ion-segment [value]="seccion" (ionChange)="seccion = $any($event.detail.value)">
+        <ion-segment-button value="ingredientes">
+          <ion-label>Ingredientes ({{ receta.ingredientes.length }})</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="pasos">
+          <ion-label>Pasos ({{ receta.pasos.length }})</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+      @switch (seccion) {
+        @case ('ingredientes') {
+          <ul class="ingredientes">
+            @for (ri of receta.ingredientes; track ri.ingrediente.id) {
+              <li>
+                <span class="icono" aria-hidden="true">{{ ri.ingrediente.icono }}</span>
+                <span class="nombre">{{ ri.ingrediente.nombre }}</span>
+                <span class="cantidad">{{ ri.cantidad }} {{ unidades[ri.ingrediente.unidadMedida] }}</span>
+                @if (loTengo(ri.ingrediente.id)) {
+                  <span class="estado tengo">En casa</span>
+                } @else {
+                  <span class="estado falta">Falta</span>
+                }
+              </li>
+            }
+          </ul>
+          @if (faltantes() > 0) {
+            <ion-button fill="outline" expand="block" color="secondary">
+              <ion-icon slot="start" name="cart-outline"></ion-icon>
+              Añadir {{ faltantes() }} a la lista de la compra
+            </ion-button>
+          }
+        }
+        @case ('pasos') {
+          <ol class="pasos">
+            @for (paso of receta.pasos; track paso.id) {
+              <li><span class="numero">{{ paso.numero }}</span><p>{{ paso.descripcion }}</p></li>
+            }
+          </ol>
+        }
+      }
+    </div>
+  </ion-content>
+
+  <ion-footer class="pie-formulario">
+    @if (cocinada) {
+      <ion-button expand="block" color="tertiary" (click)="cocinada = false">
+        <ion-icon slot="start" name="checkmark-circle"></ion-icon> ¡Apuntada en tu historial!
+      </ion-button>
+    } @else {
+      <ion-button expand="block" (click)="cocinada = true">La he cocinado</ion-button>
+    }
+  </ion-footer>
+} @else {
+  <ion-content>
+    <app-estado-vacio icono="sad-outline" titulo="Esta receta no existe">
+      <p>Puede que se haya borrado o que el enlace esté mal.</p>
+    </app-estado-vacio>
+  </ion-content>
+}
