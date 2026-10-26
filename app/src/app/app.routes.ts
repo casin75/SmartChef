@@ -38,4 +38,14 @@ export const routes: Routes = [
       { path: '', redirectTo: 'inicio', pathMatch: 'full' },
     ],
   },
+
+  // ── Pantalla completa, sin menú ──────────────────────────────
+  { path: 'escanear-ticket',
+    loadComponent: () => import('./paginas/escanear-ticket/escanear-ticket.page').then(m => m.EscanearTicketPage) },
+  { path: 'notificaciones',
+    loadComponent: () => import('./paginas/notificaciones/notificaciones.page').then(m => m.NotificacionesPage) },
+
+  // ── Cualquier otra dirección: SIEMPRE LA ÚLTIMA ──────────────
+  { path: '**',
+    loadComponent: () => import('./paginas/no-encontrada/no-encontrada.page').then(m => m.NoEncontradaPage) },
 ];
