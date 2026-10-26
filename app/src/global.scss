@@ -44,3 +44,70 @@ ion-toolbar {
   --background: var(--ion-background-color); /* la barra, del color del fondo */
   --border-width: 0; /* sin línea debajo */
 }
+
+/* Botones: sin mayúsculas, redondeados y altos */
+ion-button {
+  --border-radius: 12px;
+  --box-shadow: none;
+  text-transform: none;
+  font-weight: 700;
+  letter-spacing: 0;
+  min-height: 46px;
+}
+
+/* Tarjetas: blancas, redondeadas, sombra suave, sin margen de serie */
+ion-card {
+  --background: var(--app-superficie);
+  border-radius: var(--app-radio);
+  box-shadow: var(--app-sombra);
+  margin: 0;
+}
+
+/* Buscador: blanco con borde fino */
+ion-searchbar {
+  --background: var(--app-superficie);
+  --border-radius: 12px;
+  --box-shadow: 0 0 0 1px var(--app-borde);
+  --placeholder-color: var(--ion-color-medium);
+}
+
+/* Listas agrupadas con esquinas redondeadas */
+ion-list.list-inset {
+  border-radius: var(--app-radio);
+  box-shadow: 0 0 0 1px var(--app-borde);
+}
+
+/* Campos como en Figma: etiqueta encima y caja blanca redondeada */
+.campo {
+  display: block;
+  margin-bottom: 16px;
+
+  > span {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  ion-input, ion-select, .falso-input {
+    --background: var(--app-superficie);
+    --border-radius: 10px;
+    --border-color: var(--app-borde);
+    --highlight-color-focused: var(--ion-color-primary);
+    --padding-start: 14px;
+    --padding-end: 14px;
+    min-height: 46px;
+    font-size: 14px;
+  }
+}
+
+/* Título de sección dentro de una página */
+.titulo-seccion {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 24px 0 10px;
+
+  h2 { margin: 0; font-size: 21px; }
+  a { font-size: 13px; font-weight: 700; color: var(--ion-color-secondary); text-decoration: none; }
+}

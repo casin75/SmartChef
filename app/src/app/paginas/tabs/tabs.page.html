@@ -1,24 +1,10 @@
-<ion-tabs>
+<ion-tabs (ionTabsDidChange)="cambiarPestana($event)">
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="inicio">
-      <ion-icon name="home-outline"></ion-icon>
-      <ion-label>Inicio</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="mi-cocina">
-      <ion-icon name="file-tray-stacked-outline"></ion-icon>
-      <ion-label>Mi Cocina</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="recetas">
-      <ion-icon name="restaurant-outline"></ion-icon>
-      <ion-label>Recetas</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="lista">
-      <ion-icon name="reader-outline"></ion-icon>
-      <ion-label>Lista</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="favoritos">
-      <ion-icon name="heart-outline"></ion-icon>
-      <ion-label>Favoritos</ion-label>
-    </ion-tab-button>
+    @for (pestana of pestanas; track pestana.tab) {
+      <ion-tab-button [tab]="pestana.tab">
+        <ion-icon [name]="pestanaActiva === pestana.tab ? pestana.icono : pestana.icono + '-outline'"></ion-icon>
+        <ion-label>{{ pestana.texto }}</ion-label>
+      </ion-tab-button>
+    }
   </ion-tab-bar>
 </ion-tabs>
