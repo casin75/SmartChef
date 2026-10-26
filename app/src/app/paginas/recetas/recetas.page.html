@@ -1,13 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Recetas</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Recetas</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <app-cabecera titulo="Recetas" subtitulo="Basado en tus ingredientes">
+    <div class="botones-cabecera">
+      <button class="boton-cabecera" [class.activo]="conMisIngredientes" (click)="conMisIngredientes = true">
+        ✓ Con mis ingredientes
+      </button>
+      <button class="boton-cabecera" [class.activo]="!conMisIngredientes" (click)="conMisIngredientes = false">
+        Todas las recetas
+      </button>
+    </div>
+  </app-cabecera>
+
+  <div class="contenido">
+    <ion-searchbar [(ngModel)]="busqueda" placeholder="Buscar receta…" [debounce]="150"></ion-searchbar>
+
+    <div class="filtros">
+      @for (f of filtros; track f.valor) {
+        <ion-chip [class.activo]="filtro === f.valor" (click)="filtro = f.valor">{{ f.texto }}</ion-chip>
+      }
+    </div>
+
+    <div class="lista">
+      @for (receta of recetasVisibles; track receta.id) {
+        <app-tarjeta-receta [receta]="receta" />
+      } @empty {
+        <app-estado-vacio icono="search-outline" titulo="No hay recetas">
+          <p>Prueba con otra palabra, quita el filtro o mira todas las recetas.</p>
+          <ion-button fill="outline" size="small" (click)="limpiar()">Ver todas</ion-button>
+        </app-estado-vacio>
+      }
+    </div>
+  </div>
 </ion-content>

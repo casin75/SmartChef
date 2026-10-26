@@ -1,0 +1,41 @@
+.contenido {
+  padding: 14px 16px 24px;
+}
+
+ion-searchbar {
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+/* Píldoras de filtro: modificamos ion-chip con sus variables y con CSS por fuera */
+.filtros {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto; /* si no caben, se desplazan de lado */
+  margin: 0 -16px 14px;
+  padding: 0 16px;
+  scrollbar-width: none;
+
+  ion-chip {
+    --background: var(--app-superficie);
+    --color: var(--ion-color-medium);
+    border: 1px solid var(--app-borde);
+    margin: 0;
+    flex-shrink: 0;
+    font-size: 13px;
+    font-weight: 600;
+    height: 32px;
+  }
+
+  ion-chip.activo {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+    border-color: var(--ion-color-primary);
+  }
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 1 columna en móvil, más en tablet */
+  gap: 14px;
+}

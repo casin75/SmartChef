@@ -152,3 +152,30 @@ ion-footer.pie-formulario {
 
   a { color: var(--ion-color-primary); font-weight: 700; text-decoration: none; }
 }
+
+/* Botones pequeños dentro de las cabeceras verdes */
+.botones-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.boton-cabecera {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  background: transparent;
+  color: #fff;
+  font: 600 12px var(--ion-font-family);
+  text-decoration: none;
+  cursor: pointer;
+
+  ion-icon { font-size: 15px; }
+
+  &.blanco { background: #fff; color: #285515; border-color: #fff; }
+  &.activo, &.naranja { background: var(--ion-color-secondary); border-color: var(--ion-color-secondary); color: #fff; }
+}
