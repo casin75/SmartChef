@@ -180,3 +180,31 @@ ion-footer.pie-formulario {
   &.blanco { background: #fff; color: #285515; border-color: #fff; }
   &.activo, &.naranja { background: var(--ion-color-secondary); border-color: var(--ion-color-secondary); color: #fff; }
 }
+
+/* ── Pulido final ─────────────────────────────── */
+/* Tarjetas y filas que entran escalonadas al abrir una pantalla */
+@keyframes entrar {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+app-tarjeta-receta, app-fila-producto, app-fila-imagen, app-tarjeta-dato {
+  animation: entrar .4s ease both;
+}
+
+@for $i from 1 through 8 {
+  :is(app-tarjeta-receta, app-fila-producto, app-fila-imagen, app-tarjeta-dato):nth-child(#{$i}) {
+    animation-delay: #{$i * 50}ms;
+  }
+}
+
+/* Accesibilidad: si el usuario ha pedido menos movimiento, no animamos */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Que se vea por dónde va el foco al usar teclado */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--ion-color-secondary);
+  outline-offset: 2px;
+}
