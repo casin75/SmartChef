@@ -12,7 +12,7 @@
   <div class="extremo">
     <ng-content select="[extremo]" />
   </div>
-  @if (enlace()) {
+  @if (enlace() || flecha()) {
     <span class="flecha" aria-hidden="true">›</span>
   }
 </a>

@@ -18,6 +18,7 @@ import { EstadoVacioComponent } from '../../componentes/estado-vacio/estado-vaci
 })
 export class RecetaDetallePage {
   id = input<string>(); // recibe el ":id" de la dirección
+  volver = input('/app/recetas'); // recibe el "data.volver" de la ruta: a dónde ir si no hay historial
 
   // Buscamos la receta cada vez que cambia el id. En la dirección todo es texto: lo pasamos a número.
   receta = computed(() => RECETAS.find(r => r.id === Number(this.id())));

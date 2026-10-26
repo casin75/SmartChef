@@ -15,7 +15,7 @@
     <div class="titulo-seccion"><h2>Guardadas recientemente</h2></div>
     <div class="lista">
       @for (r of recientes; track r.id) {
-        <app-fila-imagen [imagen]="r.fotos[0].url" [titulo]="r.nombre" [enlace]="['/app/recetas', r.id]" [grande]="true">
+        <app-fila-imagen [imagen]="r.fotos[0].url" [titulo]="r.nombre" [enlace]="['/app/favoritos/receta', r.id]" [grande]="true">
           <span class="datos">
             <span><ion-icon name="time-outline"></ion-icon> {{ r.tiempo }} min</span>
             @if (r.valoracion) {

@@ -1,4 +1,4 @@
-<ion-card [routerLink]="['/app/recetas', receta().id]" [button]="true" [class.mini]="mini()">
+<ion-card [routerLink]="enlace()" [button]="true" [class.mini]="mini()">
   <div class="foto">
     <img [src]="receta().fotos[0].url" [alt]="receta().nombre" loading="lazy" />
     <div class="etiquetas">

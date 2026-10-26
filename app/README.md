@@ -81,7 +81,8 @@ verdes en la lista de la compra.
 ├── registro              Registro (fuera del menú)
 ├── app                   TabsPage: menú inferior
 │   ├── inicio            Inicio
-│   ├── inicio/historial  Historial semanal
+│   ├── inicio/historial  Historial semanal (cada día abre una ventana con sus platos)
+│   ├── inicio/receta/:id Ficha de receta abierta desde Inicio
 │   ├── inicio/perfil     Perfil y modo oscuro
 │   ├── mi-cocina         Mi Cocina
 │   ├── mi-cocina/nuevo   Añadir producto (formulario)
@@ -89,11 +90,16 @@ verdes en la lista de la compra.
 │   ├── recetas/:id       Ficha de receta
 │   ├── lista             Lista de la compra
 │   ├── favoritos         Favoritos
+│   ├── favoritos/receta/:id  Ficha de receta abierta desde Favoritos
 │   └── favoritos/:id     Colección
 ├── escanear-ticket       Pantalla completa, sin menú
 ├── notificaciones        Pantalla completa, sin menú
 └── **                    Página 404
 ```
+
+La ficha de receta existe dentro de cada pestaña desde la que se puede abrir. Así se queda iluminada la
+pestaña en la que estabas y el botón atrás vuelve a la pantalla anterior (por ejemplo, al historial) en vez de
+saltar a Recetas.
 
 Al entrar (login/registro) y al cerrar sesión se navega con `routerDirection="root"`, así el botón atrás no
 vuelve al login.

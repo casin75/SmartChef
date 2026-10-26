@@ -15,4 +15,5 @@ export class FilaImagenComponent {
   enlace = input<(string | number)[]>(); // a dónde lleva al tocarla
   insignia = input<number>(); // número en un círculo naranja sobre la foto
   grande = input(false); // foto rectangular grande en vez de redonda
+  flecha = input(false); // pinta la flecha aunque no haya enlace (cuando la fila abre una ventana)
 }
