@@ -73,3 +73,42 @@
   --app-radio: 14px; /* redondeo de tarjetas */
   --app-sombra: 0 1px 2px rgba(31, 36, 25, .05), 0 4px 14px rgba(31, 36, 25, .06);
 }
+
+/* ── Modo oscuro ──────────────────────────────── */
+.ion-palette-dark {
+  --app-cabecera: #1d3d0f; /* verde más profundo para las cabeceras */
+  --app-superficie: #1c2218;
+  --app-borde: #2b3325;
+  --app-sombra: none;
+
+  --ion-color-primary: #8cc16b; /* más claro: se lee mejor sobre fondo oscuro */
+  --ion-color-primary-rgb: 140, 193, 107;
+  --ion-color-primary-contrast: #0f1a0a;
+  --ion-color-primary-contrast-rgb: 15, 26, 10;
+  --ion-color-primary-shade: #7baa5e;
+  --ion-color-primary-tint: #98c77a;
+
+  --ion-color-secondary: #ec8a4c;
+  --ion-color-secondary-rgb: 236, 138, 76;
+  --ion-color-secondary-contrast: #1a0d04;
+  --ion-color-secondary-contrast-rgb: 26, 13, 4;
+  --ion-color-secondary-shade: #d07943;
+  --ion-color-secondary-tint: #ee965e;
+
+  --ion-color-medium: #a39d90;
+  --ion-color-medium-rgb: 163, 157, 144;
+  --ion-color-medium-shade: #8f8a7f;
+  --ion-color-medium-tint: #aca79b;
+}
+
+/* Ionic pone el fondo oscuro sobre <body>: lo sobrescribimos con la misma precisión */
+.ion-palette-dark.ios body {
+  --ion-background-color: #12160f;
+  --ion-background-color-rgb: 18, 22, 15;
+  --ion-text-color: #ecefe6;
+  --ion-text-color-rgb: 236, 239, 230;
+  --ion-item-background: #1c2218;
+  --ion-card-background: #1c2218;
+  --ion-toolbar-background: #12160f;
+  --ion-tab-bar-background: #1c2218;
+}

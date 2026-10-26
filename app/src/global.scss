@@ -30,8 +30,8 @@
 @import '@ionic/angular/css/text-transformation.css';
 @import '@ionic/angular/css/flex-utils.css';
 
-/* Dark mode: activado según el sistema */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* Modo oscuro: se activa cuando <html> tiene la clase "ion-palette-dark" */
+@import '@ionic/angular/css/palettes/dark.class.css';
 
 /* ── Estilos generales de SmartChef (al final) ── */
 h1, h2, h3, ion-title {

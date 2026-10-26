@@ -12,6 +12,7 @@ import {
   fileTrayStacked,
   reader,
   heart,
+  moonOutline,
 } from 'ionicons/icons';
 
 @Component({
@@ -23,7 +24,7 @@ export class AppComponent {
   constructor() {
     addIcons({
       restaurant, homeOutline, fileTrayStackedOutline, restaurantOutline, readerOutline, heartOutline,
-      home, fileTrayStacked, reader, heart,
+      home, fileTrayStacked, reader, heart, moonOutline,
     });
   }
 }
