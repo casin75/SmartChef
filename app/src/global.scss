@@ -7,6 +7,13 @@
  * output CSS.
  */
 
+/* ── Fuentes (al principio del fichero) ──────── */
+@import '@fontsource/instrument-sans/400.css';
+@import '@fontsource/instrument-sans/600.css';
+@import '@fontsource/instrument-sans/700.css';
+@import '@fontsource/dm-serif-display/400.css';
+@import '@fontsource/dm-serif-display/400-italic.css';
+
 /* Core CSS required for Ionic components to work properly */
 @import '@ionic/angular/css/core.css';
 
@@ -25,3 +32,15 @@
 
 /* Dark mode: activado según el sistema */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* ── Estilos generales de SmartChef (al final) ── */
+h1, h2, h3, ion-title {
+  font-family: var(--app-fuente-titulos);
+  font-weight: 400; /* DM Serif Display solo tiene un grosor */
+  letter-spacing: 0;
+}
+
+ion-toolbar {
+  --background: var(--ion-background-color); /* la barra, del color del fondo */
+  --border-width: 0; /* sin línea debajo */
+}

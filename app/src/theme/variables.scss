@@ -1,2 +1,75 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+// Paleta de SmartChef: la misma que el diseño de Figma.
+// Variables generadas con el Color Generator de Ionic:
+// https://ionicframework.com/docs/theming/color-generator
+
+:root {
+  /* ── Tipografía ─────────────────────────────── */
+  --ion-font-family: 'Instrument Sans', system-ui, sans-serif; /* textos */
+  --app-fuente-titulos: 'DM Serif Display', Georgia, serif; /* títulos (variable nuestra) */
+
+  /* ── Fondo y texto ──────────────────────────── */
+  --ion-background-color: #f8f5ef; /* crema */
+  --ion-background-color-rgb: 248, 245, 239;
+  --ion-text-color: #1f2419;
+  --ion-text-color-rgb: 31, 36, 25;
+
+  /* ── Colores con nombre ─────────────────────── */
+  /* primary · Albahaca */
+  --ion-color-primary: #285515;
+  --ion-color-primary-rgb: 40, 85, 21;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #234b12;
+  --ion-color-primary-tint: #3e662c;
+
+  /* secondary · Calabaza */
+  --ion-color-secondary: #d96b27;
+  --ion-color-secondary-rgb: 217, 107, 39;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #bf5e22;
+  --ion-color-secondary-tint: #dd7a3d;
+
+  /* tertiary · Hoja */
+  --ion-color-tertiary: #4f8a2b;
+  --ion-color-tertiary-rgb: 79, 138, 43;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #467a26;
+  --ion-color-tertiary-tint: #619640;
+
+  --ion-color-success: #2f8a3e;
+  --ion-color-success-rgb: 47, 138, 62;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #297937;
+  --ion-color-success-tint: #449651;
+
+  --ion-color-warning: #e0a526;
+  --ion-color-warning-rgb: 224, 165, 38;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #c59121;
+  --ion-color-warning-tint: #e3ae3c;
+
+  --ion-color-danger: #c8412f;
+  --ion-color-danger-rgb: 200, 65, 47;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #b0392a;
+  --ion-color-danger-tint: #ce5444;
+
+  --ion-color-medium: #7a7468;
+  --ion-color-medium-rgb: 122, 116, 104;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #6b665c;
+  --ion-color-medium-tint: #878277;
+
+  /* ── Variables propias de SmartChef ─────────── */
+  --app-cabecera: #285515; /* fondo de las cabeceras verdes */
+  --app-superficie: #ffffff; /* fondo de tarjetas y listas */
+  --app-borde: #ece7dc; /* líneas finas */
+  --app-radio: 14px; /* redondeo de tarjetas */
+  --app-sombra: 0 1px 2px rgba(31, 36, 25, .05), 0 4px 14px rgba(31, 36, 25, .06);
+}
