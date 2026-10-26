@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+.dato {
+  height: 100%;
+  padding: 14px;
+  background: var(--app-superficie);
+  border: 1px solid var(--app-borde);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+
+  .icono { font-size: 16px; margin-bottom: 6px; }
+  strong { font-size: 18px; font-weight: 700; }
+  small { font-size: 11px; color: var(--ion-color-medium); margin-top: 2px; }
+}

@@ -1,0 +1,18 @@
+<a class="fila" [class.grande]="grande()" [routerLink]="enlace()">
+  <div class="foto">
+    <img [src]="imagen()" alt="" loading="lazy" />
+    @if (insignia()) {
+      <span class="insignia">{{ insignia() }}</span>
+    }
+  </div>
+  <div class="textos">
+    <strong>{{ titulo() }}</strong>
+    <div class="detalle"><ng-content /></div>
+  </div>
+  <div class="extremo">
+    <ng-content select="[extremo]" />
+  </div>
+  @if (enlace()) {
+    <span class="flecha" aria-hidden="true">›</span>
+  }
+</a>

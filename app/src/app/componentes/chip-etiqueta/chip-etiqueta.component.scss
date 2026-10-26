@@ -1,0 +1,17 @@
+.chip {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+}
+
+/* Van siempre sobre una foto: colores fijos que funcionan en claro y en oscuro */
+.verde { background: #285515; }
+.naranja { background: #d96b27; }
+.hoja { background: #4f8a2b; }
+.azul { background: #2c4a6e; }
+.crema { background: #f8f5ef; color: #285515; }

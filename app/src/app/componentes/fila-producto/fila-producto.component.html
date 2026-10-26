@@ -1,0 +1,19 @@
+<div class="fila">
+  <span class="icono" aria-hidden="true">{{ producto().ingrediente.icono ?? '🥫' }}</span>
+  <div class="textos">
+    <strong>{{ producto().ingrediente.nombre }}</strong>
+    <small>{{ producto().cantidad }} {{ unidad() }}</small>
+  </div>
+  <div class="caducidad" [class.pronto]="dias() !== null && dias()! <= 2"
+       [class.aviso]="dias() !== null && dias()! > 2 && dias()! <= 5">
+    @if (dias() === null) {
+      <small>Sin caducidad</small>
+    } @else if (dias()! < 0) {
+      <small>Caducado</small>
+      <strong>{{ fecha() }}</strong>
+    } @else {
+      <small>Caduca</small>
+      <strong>{{ fecha() }}</strong>
+    }
+  </div>
+</div>
