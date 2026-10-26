@@ -1,14 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/entrada"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Inicio de sesión</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <app-cabecera titulo="Inicio de sesión" atras="/entrada" />
 
-<ion-content class="ion-padding">
-  <ion-input label="Nombre del usuario" labelPlacement="stacked" placeholder="eliasponcas"></ion-input>
-  <ion-input label="Contraseña" labelPlacement="stacked" type="password"></ion-input>
-  <ion-button expand="block" routerLink="/app/inicio" routerDirection="root">Iniciar sesión</ion-button>
+  <form class="formulario">
+    <label class="campo">
+      <span>Nombre del usuario</span>
+      <ion-input aria-label="Nombre del usuario" placeholder="eliasponcas" autocomplete="username"></ion-input>
+    </label>
+
+    <label class="campo">
+      <span>Contraseña</span>
+      <ion-input aria-label="Contraseña" type="password" placeholder="••••••••" autocomplete="current-password">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </label>
+
+    <a class="olvido">¿Olvidaste la contraseña?</a>
+  </form>
 </ion-content>
+
+<ion-footer class="pie-formulario">
+  <ion-button expand="block" routerLink="/app/inicio" routerDirection="root">Iniciar sesión</ion-button>
+  <p>¿Aún no tienes cuenta? <a routerLink="/registro">Regístrate</a></p>
+</ion-footer>

@@ -13,6 +13,7 @@ import {
   reader,
   heart,
   moonOutline,
+  calendarOutline,
 } from 'ionicons/icons';
 
 @Component({
@@ -25,6 +26,7 @@ export class AppComponent {
     addIcons({
       restaurant, homeOutline, fileTrayStackedOutline, restaurantOutline, readerOutline, heartOutline,
       home, fileTrayStacked, reader, heart, moonOutline,
+      calendarOutline,
     });
   }
 }

@@ -1,15 +1,38 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/entrada"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <app-cabecera titulo="Registro" atras="/entrada" />
 
-<ion-content class="ion-padding">
-  <ion-input label="Nombre del usuario" labelPlacement="stacked" placeholder="eliasponcas"></ion-input>
-  <ion-input label="Contraseña" labelPlacement="stacked" type="password"></ion-input>
-  <ion-input label="Fecha de nacimiento" labelPlacement="stacked" type="date"></ion-input>
-  <ion-button expand="block" routerLink="/app/inicio" routerDirection="root">Registrarse</ion-button>
+  <form class="formulario">
+    <label class="campo">
+      <span>Nombre del usuario</span>
+      <ion-input aria-label="Nombre del usuario" placeholder="eliasponcas" autocomplete="username"></ion-input>
+    </label>
+
+    <label class="campo">
+      <span>Contraseña</span>
+      <ion-input aria-label="Contraseña" type="password" placeholder="••••••••" autocomplete="new-password">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </label>
+
+    <div class="campo">
+      <span>Fecha de nacimiento</span>
+      <div class="falso-input">
+        <ion-datetime-button datetime="nacimiento"></ion-datetime-button>
+        <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+      </div>
+    </div>
+
+    <!-- El calendario se abre en una ventana al pulsar la fecha -->
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="nacimiento" presentation="date" locale="es-ES" [preferWheel]="true"
+                      value="2006-01-01" max="2014-12-31"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </form>
 </ion-content>
+
+<ion-footer class="pie-formulario">
+  <ion-button expand="block" routerLink="/app/inicio" routerDirection="root">Registrarse</ion-button>
+  <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+</ion-footer>

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonInput, IonButton,
-  IonRouterLink } from '@ionic/angular';
+import { IonContent, IonInput, IonInputPasswordToggle, IonButton, IonFooter, IonRouterLink, IonIcon,
+  IonDatetime, IonDatetimeButton, IonModal } from '@ionic/angular';
+import { CabeceraComponent } from '../../componentes/cabecera/cabecera.component';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonInput, IonButton,
-    RouterLink, IonRouterLink],
+  imports: [IonContent, IonInput, IonInputPasswordToggle, IonButton, IonFooter, RouterLink, IonRouterLink,
+    IonIcon, IonDatetime, IonDatetimeButton, IonModal, CabeceraComponent],
 })
 export class RegistroPage {}

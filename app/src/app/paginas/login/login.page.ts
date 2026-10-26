@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonInput, IonButton,
+import { IonContent, IonInput, IonInputPasswordToggle, IonButton, IonFooter,
   IonRouterLink } from '@ionic/angular';
+import { CabeceraComponent } from '../../componentes/cabecera/cabecera.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonInput, IonButton,
-    RouterLink, IonRouterLink],
+  imports: [IonContent, IonInput, IonInputPasswordToggle, IonButton, IonFooter, RouterLink, IonRouterLink,
+    CabeceraComponent],
 })
 export class LoginPage {}

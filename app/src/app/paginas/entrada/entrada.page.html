@@ -1,8 +1,11 @@
-<ion-content class="ion-padding">
-  <div class="centrado">
-    <ion-icon name="restaurant"></ion-icon>
+<ion-content [fullscreen]="true" class="entrada">
+  <div class="contenido">
+    <app-logo-chef class="logo" />
     <h1>Come mejor, gasta menos</h1>
     <p>Alertas de caducidad, listas de compra inteligentes y recomendaciones personalizadas cada día.</p>
+  </div>
+
+  <div class="botones">
     <ion-button expand="block" color="secondary" routerLink="/registro">Registrarse</ion-button>
     <ion-button expand="block" routerLink="/login">Iniciar sesión</ion-button>
   </div>
