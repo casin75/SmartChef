@@ -12,8 +12,9 @@
     <div class="titulo-seccion"><h2>Día a día</h2></div>
     <div class="lista">
       @for (dia of dias; track dia.fecha) {
+        <!-- Al tocar un día se abre la ventana con todos sus platos -->
         <app-fila-imagen [imagen]="dia.recetas[0].fotos[0].url" [titulo]="dia.dia + ' — ' + dia.fechaCorta"
-                         [insignia]="dia.recetas.length" [enlace]="['/app/recetas', dia.recetas[0].id]">
+                         [insignia]="dia.recetas.length" [flecha]="true" (click)="abrir(dia)">
           {{ dia.recetas.length }} {{ dia.recetas.length === 1 ? 'plato cocinado' : 'platos cocinados' }}
           <span extremo>{{ dia.kcal }} kcal</span>
         </app-fila-imagen>
@@ -24,4 +25,30 @@
       }
     </div>
   </div>
+
+  <!-- Ventana que sube desde abajo con los platos del día elegido -->
+  <ion-modal [isOpen]="diaElegido !== null" (didDismiss)="alCerrarVentana()" [initialBreakpoint]="0.5"
+             [breakpoints]="[0, 0.5, 0.85]">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ diaElegido?.dia }} — {{ diaElegido?.fechaCorta }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cerrar()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <p class="resumen">{{ diaElegido?.recetas?.length }} platos · {{ diaElegido?.kcal }} kcal en total</p>
+        <div class="lista">
+          @for (receta of diaElegido?.recetas; track receta.id) {
+            <app-fila-imagen [imagen]="receta.fotos[0].url" [titulo]="receta.nombre" [grande]="true"
+                             [flecha]="true" (click)="verReceta(receta.id)">
+              {{ receta.tiempo }} min · {{ receta.kcal }} kcal
+            </app-fila-imagen>
+          }
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

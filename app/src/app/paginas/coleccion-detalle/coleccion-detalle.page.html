@@ -5,7 +5,7 @@
   <div class="contenido">
     @if (coleccion()) {
       @for (receta of recetas(); track receta.id) {
-        <app-tarjeta-receta [receta]="receta" />
+        <app-tarjeta-receta [receta]="receta" seccion="favoritos" />
       } @empty {
         <app-estado-vacio icono="bookmark-outline" titulo="Colección vacía">
           <p>Guarda aquí recetas desde su ficha para tenerlas a mano.</p>

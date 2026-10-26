@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IonCard, IonIcon } from '@ionic/angular';
 import { Receta } from '../../modelos/receta';
@@ -14,4 +14,10 @@ import { ChipEtiquetaComponent } from '../chip-etiqueta/chip-etiqueta.component'
 export class TarjetaRecetaComponent {
   receta = input.required<Receta>(); // la receta que tiene que pintar
   mini = input(false); // versión pequeña para el inicio: solo foto, nombre y tiempo
+  seccion = input<'recetas' | 'inicio' | 'favoritos'>('recetas'); // la pestaña desde la que se abre
+
+  // La ficha se abre dentro de la pestaña en la que estamos, para que "atrás" vuelva aquí
+  enlace = computed(() => this.seccion() === 'recetas'
+    ? ['/app/recetas', this.receta().id]
+    : ['/app', this.seccion(), 'receta', this.receta().id]);
 }

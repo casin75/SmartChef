@@ -4,7 +4,7 @@
     <div class="portada">
       <img [src]="receta.fotos[0].url" [alt]="receta.nombre" />
       <div class="botones-flotantes">
-        <ion-back-button defaultHref="/app/recetas" text="" aria-label="Atrás"></ion-back-button>
+        <ion-back-button [defaultHref]="volver()" text="" aria-label="Atrás"></ion-back-button>
         <button class="redondo" (click)="favorita = !favorita"
                 [attr.aria-label]="favorita ? 'Quitar de favoritos' : 'Guardar en favoritos'">
           <ion-icon [name]="favorita ? 'heart' : 'heart-outline'"></ion-icon>
