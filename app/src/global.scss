@@ -63,8 +63,9 @@ ion-card {
   margin: 0;
 }
 
-/* Buscador: blanco con borde fino */
-ion-searchbar {
+/* Buscador: blanco con borde fino (con .ios para ganar a los estilos de Ionic) */
+ion-searchbar.ios,
+ion-searchbar.md {
   --background: var(--app-superficie);
   --border-radius: 12px;
   --box-shadow: 0 0 0 1px var(--app-borde);

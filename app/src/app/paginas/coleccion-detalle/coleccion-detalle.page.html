@@ -1,12 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/app/favoritos"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Colección</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <app-cabecera [titulo]="coleccion() ? coleccion()!.nombre + ' ' + coleccion()!.icono : 'Colección'"
+                [subtitulo]="recetas().length + ' recetas'" atras="/app/favoritos" />
 
-<ion-content class="ion-padding">
-  <p>Estás viendo la colección con <strong>id = {{ id() }}</strong></p>
+  <div class="contenido">
+    @if (coleccion()) {
+      @for (receta of recetas(); track receta.id) {
+        <app-tarjeta-receta [receta]="receta" />
+      } @empty {
+        <app-estado-vacio icono="bookmark-outline" titulo="Colección vacía">
+          <p>Guarda aquí recetas desde su ficha para tenerlas a mano.</p>
+        </app-estado-vacio>
+      }
+    } @else {
+      <app-estado-vacio icono="sad-outline" titulo="Esta colección no existe" />
+    }
+  </div>
 </ion-content>

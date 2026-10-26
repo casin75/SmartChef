@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonSearchbar, IonChip, IonButton, IonIcon } from '@ionic/angular';
+import { IonContent, IonSearchbar, IonChip, IonButton } from '@ionic/angular';
 import { RECETAS } from '../../datos/recetas';
 import { Etiqueta, Receta } from '../../modelos/receta';
 import { faltan } from '../../utilidades/despensa';
@@ -12,7 +12,7 @@ import { EstadoVacioComponent } from '../../componentes/estado-vacio/estado-vaci
   selector: 'app-recetas',
   templateUrl: './recetas.page.html',
   styleUrls: ['./recetas.page.scss'],
-  imports: [FormsModule, IonContent, IonSearchbar, IonChip, IonButton, IonIcon, CabeceraComponent,
+  imports: [FormsModule, IonContent, IonSearchbar, IonChip, IonButton, CabeceraComponent,
     TarjetaRecetaComponent, EstadoVacioComponent],
 })
 export class RecetasPage {
