@@ -1,0 +1,45 @@
+<ion-content [fullscreen]="true" class="oscuro">
+  <div class="barra">
+    <ion-back-button defaultHref="/app/mi-cocina" text="" aria-label="Atrás"></ion-back-button>
+    <h1>Escanear Ticket</h1>
+    <span></span>
+  </div>
+
+  @switch (estado) {
+    @case ('leido') {
+      <div class="resultado">
+        <h2>✓ Ticket leído</h2>
+        <p>Hemos encontrado {{ productosLeidos.length }} productos. Revisa que esté todo bien:</p>
+        @for (p of productosLeidos; track p.ingrediente.id) {
+          <app-fila-producto [producto]="p" />
+        }
+      </div>
+    }
+    @default {
+      <div class="visor" [class.leyendo]="estado === 'leyendo'">
+        <i class="esquina arriba izquierda"></i><i class="esquina arriba derecha"></i>
+        <i class="esquina abajo izquierda"></i><i class="esquina abajo derecha"></i>
+        @if (estado === 'leyendo') {
+          <ion-spinner name="crescent"></ion-spinner>
+          <small>Leyendo el ticket…</small>
+        } @else {
+          <ion-icon name="receipt-outline" aria-hidden="true"></ion-icon>
+          <small>Cámara activa</small>
+        }
+      </div>
+      <p class="pista">Apunta la cámara al ticket de compra</p>
+    }
+  }
+</ion-content>
+
+<ion-footer class="pie-oscuro">
+  @if (estado === 'leido') {
+    <ion-button expand="block" color="secondary" routerLink="/app/mi-cocina" routerDirection="back">
+      Añadir a Mi Cocina
+    </ion-button>
+  } @else {
+    <ion-button expand="block" color="secondary" (click)="fotografiar()" [disabled]="estado === 'leyendo'">
+      <ion-icon slot="start" name="camera-outline"></ion-icon> Fotografiar ticket
+    </ion-button>
+  }
+</ion-footer>

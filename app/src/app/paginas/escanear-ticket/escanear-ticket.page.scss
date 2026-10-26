@@ -1,0 +1,76 @@
+/* Esta pantalla es oscura siempre, como la cámara de cualquier móvil */
+.oscuro {
+  --background: #1a1a1a;
+  color: #fff;
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--ion-safe-area-top, 0px) + 14px) 12px 0;
+
+  h1 { margin: 0; font: 700 15px var(--ion-font-family); color: #fff; }
+  span { width: 40px; }
+}
+
+ion-back-button {
+  --color: #fff;
+  width: 40px;
+}
+
+.visor {
+  position: relative;
+  margin: 40px 28px 0;
+  aspect-ratio: 3 / 4;
+  border-radius: 16px;
+  background: #262626;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #bdbdbd;
+
+  ion-icon { font-size: 34px; }
+  small { font-size: 12px; }
+  ion-spinner { color: var(--ion-color-secondary); }
+}
+
+/* Las cuatro esquinas naranjas del visor */
+.esquina {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--ion-color-secondary);
+
+  &.arriba { top: 14px; border-bottom: 0; }
+  &.abajo { bottom: 14px; border-top: 0; }
+  &.izquierda { left: 14px; border-right: 0; border-radius: 6px 0 0 0; }
+  &.derecha { right: 14px; border-left: 0; border-radius: 0 6px 0 0; }
+  &.abajo.izquierda { border-radius: 0 0 0 6px; }
+  &.abajo.derecha { border-radius: 0 0 6px 0; }
+}
+
+.pista {
+  text-align: center;
+  font-size: 12px;
+  color: #9e9e9e;
+  margin-top: 18px;
+}
+
+.resultado {
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  h2 { margin: 0; color: #8cc16b; font-size: 24px; }
+  p { margin: 0 0 8px; color: #bdbdbd; font-size: 13px; }
+}
+
+.pie-oscuro {
+  background: #1a1a1a;
+  padding: 14px 20px calc(var(--ion-safe-area-bottom, 0px) + 18px);
+  box-shadow: none;
+}

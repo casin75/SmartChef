@@ -1,0 +1,22 @@
+.contenido {
+  padding: 8px 0 28px;
+}
+
+ion-list.list-inset {
+  margin: 8px 16px;
+}
+
+ion-item {
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+}
+
+.texto {
+  color: var(--ion-text-color) !important;
+  font-size: 14px !important;
+  line-height: 1.4;
+}
+
+ion-note {
+  font-size: 12px;
+}

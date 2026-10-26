@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true">
+  <app-cabecera titulo="Mi Cocina" [subtitulo]="despensa.length + ' ingredientes disponibles'">
+    <div class="botones-cabecera">
+      <a class="boton-cabecera blanco" routerLink="/escanear-ticket">
+        <ion-icon name="receipt-outline"></ion-icon> Escanear ticket
+      </a>
+      <a class="boton-cabecera naranja" routerLink="/app/mi-cocina/nuevo">
+        <ion-icon name="add"></ion-icon> Añadir producto
+      </a>
+    </div>
+  </app-cabecera>
+
+  <div class="contenido">
+    @if (caducanPronto.length > 0) {
+      <div class="aviso" role="status">
+        <ion-icon name="warning" aria-hidden="true"></ion-icon>
+        <div>
+          <strong>{{ caducanPronto.length }} productos caducan pronto</strong>
+          <small>Revisa las fechas en rojo</small>
+        </div>
+        <span aria-hidden="true">›</span>
+      </div>
+    }
+
+    <ion-segment [value]="ubicacion" (ionChange)="ubicacion = $any($event.detail.value)">
+      @for (u of ubicaciones; track u.valor) {
+        <ion-segment-button [value]="u.valor">
+          <ion-label>{{ u.icono }} {{ u.texto }}</ion-label>
+        </ion-segment-button>
+      }
+    </ion-segment>
+
+    <div class="lista">
+      @for (producto of productosVisibles; track producto.ingrediente.id) {
+        <app-fila-producto [producto]="producto" />
+      } @empty {
+        <app-estado-vacio icono="file-tray-outline" titulo="Aquí no hay nada">
+          <p>Añade lo que tengas guardado aquí o escanea el ticket de la compra.</p>
+          <ion-button size="small" routerLink="/app/mi-cocina/nuevo">Añadir producto</ion-button>
+        </app-estado-vacio>
+      }
+    </div>
+  </div>
+</ion-content>

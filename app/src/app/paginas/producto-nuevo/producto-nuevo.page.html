@@ -1,0 +1,67 @@
+<ion-content [fullscreen]="true">
+  <app-cabecera titulo="Añadir producto" atras="/app/mi-cocina" />
+
+  <form class="formulario">
+    <!-- 1. Texto -->
+    <label class="campo">
+      <span>Nombre del producto</span>
+      <ion-input aria-label="Nombre del producto" placeholder="Ej: Leche entera"></ion-input>
+    </label>
+
+    <!-- 2. Número y 3. Selector -->
+    <div class="dos-columnas">
+      <label class="campo">
+        <span>Cantidad</span>
+        <ion-input aria-label="Cantidad" type="number" inputmode="decimal" placeholder="500" min="0"></ion-input>
+      </label>
+      <label class="campo">
+        <span>Unidad</span>
+        <ion-select aria-label="Unidad" interface="popover" [value]="0">
+          @for (u of unidades; track u.valor) {
+            <ion-select-option [value]="u.valor">{{ u.texto }}</ion-select-option>
+          }
+        </ion-select>
+      </label>
+    </div>
+
+    <!-- Ubicación: tres botones que se comportan como una opción única -->
+    <div class="campo">
+      <span>Ubicación</span>
+      <div class="ubicaciones" role="radiogroup" aria-label="Ubicación">
+        @for (u of ubicaciones; track u.valor) {
+          <button type="button" role="radio" [attr.aria-checked]="ubicacion === u.valor"
+                  [class.elegida]="ubicacion === u.valor" (click)="ubicacion = u.valor">
+            <span aria-hidden="true">{{ u.icono }}</span>
+            {{ u.texto }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- 4. Fecha -->
+    <div class="campo">
+      <span>Fecha de caducidad</span>
+      <div class="falso-input">
+        <ion-datetime-button datetime="caducidad"></ion-datetime-button>
+        <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+      </div>
+    </div>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="caducidad" presentation="date" locale="es-ES" [min]="hoy" [value]="hoy"
+                      [showDefaultButtons]="true" doneText="Aceptar" cancelText="Cancelar"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <!-- 5. Interruptor -->
+    <div class="aviso-caducidad">
+      <ion-toggle [checked]="true" labelPlacement="start" justify="space-between">
+        Avisarme 2 días antes de que caduque
+      </ion-toggle>
+    </div>
+  </form>
+</ion-content>
+
+<ion-footer class="pie-formulario">
+  <ion-button expand="block" routerLink="/app/mi-cocina" routerDirection="back">Añadir producto</ion-button>
+</ion-footer>

@@ -1,0 +1,210 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ */
+
+/* ── Fuentes (al principio del fichero) ──────── */
+@import '@fontsource/instrument-sans/400.css';
+@import '@fontsource/instrument-sans/600.css';
+@import '@fontsource/instrument-sans/700.css';
+@import '@fontsource/dm-serif-display/400.css';
+@import '@fontsource/dm-serif-display/400-italic.css';
+
+/* Core CSS required for Ionic components to work properly */
+@import '@ionic/angular/css/core.css';
+
+/* Basic CSS for apps built with Ionic */
+@import '@ionic/angular/css/normalize.css';
+@import '@ionic/angular/css/structure.css';
+@import '@ionic/angular/css/typography.css';
+@import '@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import '@ionic/angular/css/padding.css';
+@import '@ionic/angular/css/float-elements.css';
+@import '@ionic/angular/css/text-alignment.css';
+@import '@ionic/angular/css/text-transformation.css';
+@import '@ionic/angular/css/flex-utils.css';
+
+/* Modo oscuro: se activa cuando <html> tiene la clase "ion-palette-dark" */
+@import '@ionic/angular/css/palettes/dark.class.css';
+
+/* ── Estilos generales de SmartChef (al final) ── */
+h1, h2, h3, ion-title {
+  font-family: var(--app-fuente-titulos);
+  font-weight: 400; /* DM Serif Display solo tiene un grosor */
+  letter-spacing: 0;
+}
+
+ion-toolbar {
+  --background: var(--ion-background-color); /* la barra, del color del fondo */
+  --border-width: 0; /* sin línea debajo */
+}
+
+/* Botones: sin mayúsculas, redondeados y altos */
+ion-button {
+  --border-radius: 12px;
+  --box-shadow: none;
+  text-transform: none;
+  font-weight: 700;
+  letter-spacing: 0;
+  min-height: 46px;
+}
+
+/* Tarjetas: blancas, redondeadas, sombra suave, sin margen de serie */
+ion-card {
+  --background: var(--app-superficie);
+  border-radius: var(--app-radio);
+  box-shadow: var(--app-sombra);
+  margin: 0;
+}
+
+/* Buscador: blanco con borde fino (con .ios para ganar a los estilos de Ionic) */
+ion-searchbar.ios,
+ion-searchbar.md {
+  --background: var(--app-superficie);
+  --border-radius: 12px;
+  --box-shadow: 0 0 0 1px var(--app-borde);
+  --placeholder-color: var(--ion-color-medium);
+}
+
+/* Listas agrupadas con esquinas redondeadas */
+ion-list.list-inset {
+  border-radius: var(--app-radio);
+  box-shadow: 0 0 0 1px var(--app-borde);
+}
+
+/* Campos como en Figma: etiqueta encima y caja blanca redondeada */
+.campo {
+  display: block;
+  margin-bottom: 16px;
+
+  > span {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  ion-input, ion-select, .falso-input {
+    --background: var(--app-superficie);
+    --border-radius: 10px;
+    --border-color: var(--app-borde);
+    --highlight-color-focused: var(--ion-color-primary);
+    --padding-start: 14px;
+    --padding-end: 14px;
+    min-height: 46px;
+    font-size: 14px;
+  }
+}
+
+/* Título de sección dentro de una página */
+.titulo-seccion {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 24px 0 10px;
+
+  h2 { margin: 0; font-size: 21px; }
+  a { font-size: 13px; font-weight: 700; color: var(--ion-color-secondary); text-decoration: none; }
+}
+
+/* Campos de texto con caja blanca (login, registro, formularios) */
+.campo ion-input,
+.campo ion-select,
+.campo .falso-input {
+  border: 1px solid var(--app-borde);
+  border-radius: 10px;
+  background: var(--app-superficie);
+}
+
+.campo .falso-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 0 6px;
+
+  ion-icon { font-size: 18px; color: var(--ion-color-medium); }
+}
+
+ion-datetime-button::part(native) {
+  background: transparent;
+  color: var(--ion-text-color);
+  font-size: 14px;
+}
+
+/* Zona blanca de abajo con el botón principal (como en Figma) */
+ion-footer.pie-formulario {
+  background: var(--app-superficie);
+  border-top: 1px solid var(--app-borde);
+  padding: 18px 20px calc(var(--ion-safe-area-bottom, 0px) + 18px);
+  box-shadow: none;
+
+  p {
+    margin: 12px 0 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--ion-color-medium);
+  }
+
+  a { color: var(--ion-color-primary); font-weight: 700; text-decoration: none; }
+}
+
+/* Botones pequeños dentro de las cabeceras verdes */
+.botones-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.boton-cabecera {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  background: transparent;
+  color: #fff;
+  font: 600 12px var(--ion-font-family);
+  text-decoration: none;
+  cursor: pointer;
+
+  ion-icon { font-size: 15px; }
+
+  &.blanco { background: #fff; color: #285515; border-color: #fff; }
+  &.activo, &.naranja { background: var(--ion-color-secondary); border-color: var(--ion-color-secondary); color: #fff; }
+}
+
+/* ── Pulido final ─────────────────────────────── */
+/* Tarjetas y filas que entran escalonadas al abrir una pantalla */
+@keyframes entrar {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+app-tarjeta-receta, app-fila-producto, app-fila-imagen, app-tarjeta-dato {
+  animation: entrar .4s ease both;
+}
+
+@for $i from 1 through 8 {
+  :is(app-tarjeta-receta, app-fila-producto, app-fila-imagen, app-tarjeta-dato):nth-child(#{$i}) {
+    animation-delay: #{$i * 50}ms;
+  }
+}
+
+/* Accesibilidad: si el usuario ha pedido menos movimiento, no animamos */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Que se vea por dónde va el foco al usar teclado */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--ion-color-secondary);
+  outline-offset: 2px;
+}

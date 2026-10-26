@@ -1,0 +1,40 @@
+.contenido {
+  padding: 16px 16px 24px;
+}
+
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(var(--ion-color-warning-rgb), .7);
+  background: rgba(var(--ion-color-warning-rgb), .12);
+
+  ion-icon { font-size: 22px; color: var(--ion-color-warning); }
+  div { flex: 1; display: flex; flex-direction: column; }
+  strong { font-size: 13px; color: var(--ion-color-secondary-shade); }
+  small { font-size: 11px; color: var(--ion-color-medium); }
+  span { font-size: 18px; color: var(--ion-color-medium); }
+}
+
+ion-segment {
+  --background: rgba(var(--ion-color-primary-rgb), .08);
+  margin-bottom: 14px;
+}
+
+ion-segment-button {
+  --indicator-color: var(--app-superficie);
+  --color: var(--ion-color-medium);
+  --color-checked: var(--ion-color-primary);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

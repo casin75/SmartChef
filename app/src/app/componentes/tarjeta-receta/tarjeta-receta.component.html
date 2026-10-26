@@ -1,0 +1,23 @@
+<ion-card [routerLink]="['/app/recetas', receta().id]" [button]="true" [class.mini]="mini()">
+  <div class="foto">
+    <img [src]="receta().fotos[0].url" [alt]="receta().nombre" loading="lazy" />
+    <div class="etiquetas">
+      <!-- En la versión mini solo cabe una etiqueta -->
+      @for (etiqueta of mini() ? receta().etiquetas.slice(0, 1) : receta().etiquetas; track etiqueta) {
+        <app-chip-etiqueta [etiqueta]="etiqueta" />
+      }
+    </div>
+  </div>
+
+  <div class="cuerpo">
+    <h3>{{ receta().nombre }}</h3>
+    <div class="datos">
+      <span><ion-icon name="time-outline" aria-hidden="true"></ion-icon>{{ receta().tiempo }} min</span>
+      @if (!mini()) {
+        <span><ion-icon name="flame-outline" aria-hidden="true"></ion-icon>{{ receta().kcal }} kcal</span>
+        <span><ion-icon name="person-outline" aria-hidden="true"></ion-icon>{{ receta().raciones }} pers.</span>
+        <app-chip-dificultad class="dificultad" [dificultad]="receta().dificultad" />
+      }
+    </div>
+  </div>
+</ion-card>

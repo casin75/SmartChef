@@ -1,0 +1,27 @@
+.contenido {
+  padding: 4px 16px 28px;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nueva {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1.5px dashed var(--app-borde);
+  background: transparent;
+  color: var(--ion-color-medium);
+  font: 600 13px var(--ion-font-family);
+}
+
+.datos {
+  display: flex;
+  gap: 14px;
+  margin-top: 4px;
+
+  span { display: inline-flex; align-items: center; gap: 3px; }
+  .estrella ion-icon { color: var(--ion-color-warning); }
+}

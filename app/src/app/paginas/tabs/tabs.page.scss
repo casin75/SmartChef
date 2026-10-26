@@ -1,0 +1,43 @@
+ion-tab-bar {
+  --background: var(--app-superficie);
+  --border: 1px solid var(--app-borde);
+  --color: var(--ion-color-medium);
+  --color-selected: var(--ion-color-primary);
+  height: 68px;
+}
+
+ion-tab-button {
+  --ripple-color: transparent;
+  position: relative;
+
+  /* La línea indicadora encima del icono: escondida hasta que la pestaña se activa */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 28px;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: var(--ion-color-secondary);
+    transform: translateX(-50%) scaleX(0);
+    transition: transform 0.25s ease;
+  }
+
+  ion-icon {
+    font-size: 23px;
+    transition: transform 0.25s ease;
+  }
+
+  ion-label {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+}
+
+/* Ionic añade la clase .tab-selected al botón de la pestaña activa */
+ion-tab-button.tab-selected {
+  &::before { transform: translateX(-50%) scaleX(1); }
+  ion-icon { transform: translateY(-1px) scale(1.08); }
+}

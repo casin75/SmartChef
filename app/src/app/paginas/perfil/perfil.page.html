@@ -1,0 +1,67 @@
+<ion-content [fullscreen]="true">
+  <app-cabecera titulo="Mi perfil" atras="/app/inicio">
+    <div class="usuario">
+      <span class="avatar">{{ usuario.nombre.charAt(0) }}</span>
+      <div>
+        <strong>{{ usuario.nombre }} Ponce</strong>
+        <small>eliasponcas</small>
+      </div>
+    </div>
+  </app-cabecera>
+
+  <div class="contenido">
+    <div class="datos">
+      <app-tarjeta-dato icono="🥕" [valor]="ingredientes" etiqueta="Ingredientes" />
+      <app-tarjeta-dato icono="🍳" [valor]="cocinadas" etiqueta="Cocinadas" />
+      <app-tarjeta-dato icono="❤️" [valor]="favoritas" etiqueta="Favoritas" />
+    </div>
+
+    <h3 class="grupo">Preferencias</h3>
+    <ion-list [inset]="true">
+      <ion-item>
+        <ion-icon slot="start" name="moon-outline"></ion-icon>
+        <ion-toggle [checked]="oscuro" (ionChange)="cambiarTema($event)">Modo oscuro</ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-icon slot="start" name="alarm-outline"></ion-icon>
+        <ion-toggle [checked]="true">Avisos de caducidad</ion-toggle>
+      </ion-item>
+      <ion-item routerLink="/notificaciones" [button]="true" [detail]="true">
+        <ion-icon slot="start" name="notifications-outline"></ion-icon>
+        <ion-label>Notificaciones</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-accordion-group>
+      <ion-accordion value="dieta">
+        <ion-item slot="header">
+          <ion-icon slot="start" name="leaf-outline"></ion-icon>
+          <ion-label>Mi alimentación</ion-label>
+        </ion-item>
+        <div slot="content" class="desplegable">
+          <p>Vegetariano los lunes · Sin frutos secos · 2 personas en casa</p>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="creditos">
+        <ion-item slot="header">
+          <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+          <ion-label>Acerca de y créditos</ion-label>
+        </ion-item>
+        <div slot="content" class="desplegable">
+          <p><strong>SmartChef</strong> · Proyecto de 2º DAM · SAFA Ntra. Sra. de los Reyes</p>
+          <p>Fotos de las recetas (autores y licencias en CREDITOS.md):</p>
+          <ul>
+            @for (foto of fotos; track foto) {
+              <li>{{ foto }}</li>
+            }
+          </ul>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+
+    <ion-button color="danger" fill="outline" expand="block" routerLink="/entrada" routerDirection="root">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Cerrar sesión
+    </ion-button>
+  </div>
+</ion-content>

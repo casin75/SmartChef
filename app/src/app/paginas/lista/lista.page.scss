@@ -1,0 +1,72 @@
+/* La barra de progreso dentro de la cabecera verde */
+ion-progress-bar {
+  --background: rgba(255, 255, 255, .25);
+  --progress-background: var(--ion-color-secondary);
+  height: 5px;
+  border-radius: 999px;
+  margin-top: 16px;
+}
+
+.contenido {
+  padding: 8px 16px 96px; /* abajo, hueco para el botón flotante */
+}
+
+.categoria {
+  margin: 18px 0 8px;
+  font-family: var(--ion-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ion-color-medium);
+}
+
+ion-list {
+  background: transparent;
+  padding: 0;
+}
+
+ion-item-sliding {
+  margin-bottom: 8px;
+  border-radius: 12px;
+}
+
+ion-item {
+  --background: var(--app-superficie);
+  --border-radius: 12px;
+  --min-height: 46px;
+  border: 1px solid var(--app-borde);
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+ion-checkbox {
+  --border-radius: 6px;
+  --size: 22px;
+  --checkbox-background-checked: var(--ion-color-tertiary);
+  --border-color-checked: var(--ion-color-tertiary);
+  margin-inline-end: 12px;
+}
+
+.nombre {
+  flex: 1;
+}
+
+.cantidad {
+  font-size: 12px;
+  color: var(--ion-color-medium);
+}
+
+/* Lo ya comprado: tachado y más claro */
+.marcado .nombre {
+  text-decoration: line-through;
+  color: var(--ion-color-medium);
+}
+
+ion-fab-button {
+  --box-shadow: 0 6px 18px rgba(var(--ion-color-secondary-rgb), .45);
+}
+
+.dos-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}

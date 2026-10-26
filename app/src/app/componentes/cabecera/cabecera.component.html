@@ -1,0 +1,20 @@
+<header class="cabecera">
+  <div class="fila">
+    @if (atras()) {
+      <ion-back-button [defaultHref]="atras()" text="" aria-label="Atrás"></ion-back-button>
+    }
+    <div class="textos">
+      <ng-content select="[antetitulo]" />
+      <h1>{{ titulo() }}</h1>
+      @if (subtitulo()) {
+        <p>{{ subtitulo() }}</p>
+      }
+    </div>
+    <div class="extremo">
+      <ng-content select="[extremo]" />
+    </div>
+  </div>
+
+  <!-- Hueco para lo que quiera poner cada página debajo del título: botones, una barra… -->
+  <ng-content />
+</header>

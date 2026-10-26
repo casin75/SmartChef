@@ -1,0 +1,76 @@
+<ion-content [fullscreen]="true">
+  <app-cabecera titulo="Lista de Compra" [subtitulo]="marcados + ' de ' + items.length + ' productos marcados'">
+    <ion-progress-bar [value]="items.length ? marcados / items.length : 0"></ion-progress-bar>
+  </app-cabecera>
+
+  <div class="contenido">
+    @for (grupo of grupos; track grupo.categoria) {
+      <h2 class="categoria">{{ grupo.categoria }}</h2>
+      <ion-list lines="none">
+        @for (item of grupo.items; track item.ingrediente.id) {
+          <ion-item-sliding>
+            <ion-item [class.marcado]="item.marcado">
+              <ion-checkbox slot="start" [checked]="item.marcado" (ionChange)="item.marcado = $event.detail.checked"
+                            [attr.aria-label]="item.ingrediente.nombre"></ion-checkbox>
+              <span class="nombre">{{ item.ingrediente.nombre }}</span>
+              <span slot="end" class="cantidad">{{ item.cantidad }} {{ unidades[item.ingrediente.unidadMedida] }}</span>
+            </ion-item>
+            <!-- Deslizando a la izquierda aparece "Borrar" -->
+            <ion-item-options side="end">
+              <ion-item-option color="danger" (click)="borrar(item)">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        }
+      </ion-list>
+    } @empty {
+      <app-estado-vacio icono="cart-outline" titulo="Tu lista está vacía">
+        <p>Pulsa el botón + para apuntar lo que necesitas comprar.</p>
+      </app-estado-vacio>
+    }
+  </div>
+
+  <!-- Botón flotante -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button color="secondary" (click)="modalAbierto = true" aria-label="Añadir producto">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Ventana "Nuevo producto" -->
+  <ion-modal [isOpen]="modalAbierto" (didDismiss)="modalAbierto = false" [initialBreakpoint]="0.6"
+             [breakpoints]="[0, 0.6, 0.9]">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Nuevo producto</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="modalAbierto = false">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <label class="campo">
+          <span>Producto</span>
+          <ion-input aria-label="Producto" placeholder="Ej: Tomates" [(ngModel)]="nuevo.nombre"></ion-input>
+        </label>
+        <div class="dos-columnas">
+          <label class="campo">
+            <span>Cantidad</span>
+            <ion-input aria-label="Cantidad" type="number" min="1" [(ngModel)]="nuevo.cantidad"></ion-input>
+          </label>
+          <label class="campo">
+            <span>Categoría</span>
+            <ion-select aria-label="Categoría" interface="popover" [(ngModel)]="nuevo.categoria">
+              @for (c of categorias; track c) {
+                <ion-select-option [value]="c">{{ c }}</ion-select-option>
+              }
+            </ion-select>
+          </label>
+        </div>
+        <ion-button expand="block" (click)="anadir()" [disabled]="!nuevo.nombre.trim()">Añadir a la lista</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

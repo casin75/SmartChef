@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true">
+  <app-cabecera titulo="Favoritos" [subtitulo]="recientes.length + ' recetas guardadas'" />
+
+  <div class="contenido">
+    <div class="titulo-seccion"><h2>Mis colecciones</h2></div>
+    <div class="lista">
+      @for (c of colecciones; track c.id) {
+        <app-fila-imagen [imagen]="fotoDe(c.recetas)" [titulo]="c.nombre + ' ' + c.icono" [enlace]="['/app/favoritos', c.id]">
+          {{ c.recetas.length }} {{ c.recetas.length === 1 ? 'receta' : 'recetas' }}
+        </app-fila-imagen>
+      }
+      <button class="nueva">+ Nueva colección</button>
+    </div>
+
+    <div class="titulo-seccion"><h2>Guardadas recientemente</h2></div>
+    <div class="lista">
+      @for (r of recientes; track r.id) {
+        <app-fila-imagen [imagen]="r.fotos[0].url" [titulo]="r.nombre" [enlace]="['/app/recetas', r.id]" [grande]="true">
+          <span class="datos">
+            <span><ion-icon name="time-outline"></ion-icon> {{ r.tiempo }} min</span>
+            @if (r.valoracion) {
+              <span class="estrella"><ion-icon name="star"></ion-icon> {{ r.valoracion }}</span>
+            }
+          </span>
+        </app-fila-imagen>
+      } @empty {
+        <app-estado-vacio icono="heart-outline" titulo="Aún no tienes favoritas">
+          <p>Toca el corazón de una receta para guardarla aquí.</p>
+        </app-estado-vacio>
+      }
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,163 @@
+/* ── La foto ───────────────────────────── */
+.portada {
+  position: relative;
+  height: 38vh;
+  background: var(--app-borde);
+
+  img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  &::after { /* degradado arriba para que los botones blancos se vean siempre */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, .35) 0%, rgba(0, 0, 0, 0) 35%);
+  }
+}
+
+.botones-flotantes {
+  position: absolute;
+  z-index: 1;
+  top: calc(var(--ion-safe-area-top, 0px) + 14px);
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Rediseñamos el botón atrás de Ionic: un círculo blanco */
+ion-back-button, .redondo {
+  --background: rgba(255, 255, 255, .92);
+  --color: #285515;
+  --border-radius: 50%;
+  --icon-font-size: 20px;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+}
+
+.redondo {
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .92);
+  color: var(--ion-color-danger);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+}
+
+/* ── La hoja ───────────────────────────── */
+.hoja {
+  position: relative;
+  z-index: 2;
+  margin-top: -26px;
+  border-radius: 24px 24px 0 0;
+  background: var(--ion-background-color);
+  padding: 22px 18px 24px;
+
+  h1 { margin: 10px 0 0; font-size: 26px; line-height: 1.15; }
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.descripcion {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ion-color-medium);
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 18px 0;
+
+  div {
+    background: var(--app-superficie);
+    border: 1px solid var(--app-borde);
+    border-radius: 12px;
+    padding: 10px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    text-align: center;
+  }
+
+  ion-icon { font-size: 18px; color: var(--ion-color-secondary); }
+  strong { font-size: 14px; }
+  small { font-size: 10.5px; color: var(--ion-color-medium); }
+}
+
+/* Segmento con el estilo de Figma: fondo claro y opción elegida en blanco */
+ion-segment {
+  --background: rgba(var(--ion-color-primary-rgb), .08);
+  margin-bottom: 14px;
+}
+
+ion-segment-button {
+  --indicator-color: var(--app-superficie);
+  --color: var(--ion-color-medium);
+  --color-checked: var(--ion-color-primary);
+  font-weight: 700;
+  text-transform: none;
+}
+
+.ingredientes {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  background: var(--app-superficie);
+  border: 1px solid var(--app-borde);
+  border-radius: 12px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  li + li { border-top: 1px solid var(--app-borde); }
+  .nombre { flex: 1; font-weight: 600; }
+  .cantidad { color: var(--ion-color-medium); font-size: 13px; }
+}
+
+.estado {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+
+  &.tengo { color: var(--ion-color-success); background: rgba(var(--ion-color-success-rgb), .12); }
+  &.falta { color: var(--ion-color-secondary); background: rgba(var(--ion-color-secondary-rgb), .14); }
+}
+
+.pasos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li { display: flex; gap: 12px; margin-bottom: 16px; }
+  p { margin: 4px 0 0; font-size: 14px; line-height: 1.55; }
+}
+
+.numero {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 13px;
+}

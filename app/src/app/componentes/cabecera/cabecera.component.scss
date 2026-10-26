@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+
+.cabecera {
+  background: var(--app-cabecera);
+  color: #fff;
+  padding: calc(var(--ion-safe-area-top, 0px) + 36px) 20px 22px;
+}
+
+.fila {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+ion-back-button {
+  --color: #fff;
+  --icon-font-size: 22px;
+  --padding-start: 0;
+  margin-left: -8px;
+  min-height: 36px;
+}
+
+.textos {
+  flex: 1;
+  min-width: 0; /* deja que los títulos largos se corten bien */
+
+  h1 {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1.15;
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    opacity: 0.85;
+  }
+}
+
+.extremo {
+  display: flex;
+  gap: 8px;
+}
