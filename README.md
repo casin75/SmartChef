@@ -22,7 +22,7 @@ Es el proyecto integrado de 2º de **Desarrollo de Aplicaciones Multiplataforma 
 ## Qué incluye
 
 **Backend: capa de acceso a datos**
-- 12 entidades JPA mapeadas sobre el esquema `smartchef` de PostgreSQL: recetas, ingredientes, pasos, usuarios, despensa, colecciones, notificaciones…
+- Base de datos PostgreSQL de 15 tablas (esquema `smartchef`) mapeada con 12 entidades JPA: recetas, ingredientes, pasos, usuarios, despensa, colecciones, notificaciones…
 - Claves compuestas con `@EmbeddedId` y `@MapsId` para las tablas intermedias con datos propios (receta-ingrediente, despensa).
 - Todas las relaciones con carga `LAZY`, y consultas `JOIN FETCH` para traer lo necesario sin caer en el problema N+1.
 - 10 repositorios con consultas derivadas, JPQL, consultas nativas y operaciones `@Modifying` con `@Transactional`.
@@ -41,7 +41,9 @@ Las capturas de todas las pantallas están en el [README de la app](app/README.m
 
 ### Backend
 
-Necesitas Java 25 y una base de datos PostgreSQL con el esquema `smartchef` creado. Configura la conexión con variables de entorno:
+Necesitas Java 25 y PostgreSQL. Primero crea el esquema y las 15 tablas con el script [`src/main/resources/db/Script_SmartChef.sql`](src/main/resources/db/Script_SmartChef.sql). Al final del script hay datos de prueba comentados; descoméntalos si quieres empezar con recetas, ingredientes y usuarios de ejemplo.
+
+Después configura la conexión con variables de entorno:
 
 ```bash
 export DB_URL=jdbc:postgresql://localhost:5432/tu_base_de_datos
