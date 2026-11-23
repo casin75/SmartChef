@@ -17,6 +17,9 @@ public interface UsuarioRecetaRepository extends JpaRepository<UsuarioReceta, In
 
     boolean existsByUsuarioIdAndRecetaId(Integer usuarioId, Integer recetaId);
 
+    // ¿Alguien ha cocinado o guardado ya esta receta? (no se puede borrar)
+    boolean existsByRecetaId(Integer recetaId);
+
     // JOIN FETCH para el historial (sin N+1)
     @Query("""
            SELECT ur FROM UsuarioReceta ur
